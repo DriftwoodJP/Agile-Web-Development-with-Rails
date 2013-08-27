@@ -17,4 +17,5 @@
 # 追記
 /*.lock
 /vendor/bundle
+/worklog
 
