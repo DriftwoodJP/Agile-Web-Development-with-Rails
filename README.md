@@ -7,3 +7,4 @@
 * [The Pragmatic Bookshelf | Agile Web Development with Rails 3.2](http://pragprog.com/book/rails32/agile-web-development-with-rails-3-2)
 * [The Pragmatic Bookshelf | Source Code](http://pragprog.com/titles/rails32/source_code)
 * [The Pragmatic Bookshelf | RailsPlayTime](http://pragprog.com/wikis/wiki/RailsPlayTime)
+* [Agile Web Development with Rails, 4th Edition - Free Download eBook - pdf](http://it-ebooks.info/book/4/)

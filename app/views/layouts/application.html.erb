@@ -1,14 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Depot</title>
+  <title>Pragprog Books オンラインストア</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body class="<%= controller.controller_name %>">
-
-<%= yield %>
-
+  <div id="banner">
+    <%= image_tag("logo.png") %>
+    <%= @page_title || "Pragprog Bookshelf" %>
+  </div>
+  <div id="columns">
+    <div id="side">
+      <ul>
+        <li><%= Time.now.strftime('%c') %></li>
+        <li><a href="/">ホーム</a></li>
+        <li><a href="/faq">良くある質問</a></li>
+        <li><a href="/news">ニュース</a></li>
+        <li><a href="/contact">お問い合わせ</a></li>
+      </ul>
+    </div>
+    <div id="main">
+      <%= yield %>
+    </div>
+  </div>
 </body>
 </html>
