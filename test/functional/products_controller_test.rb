@@ -15,6 +15,7 @@ class ProductsControllerTest < ActionController::TestCase
     get :index
     assert_response :success
     assert_not_nil assigns(:products)
+    # Rails Play Time - Ch.8 Depot_c
     assert_select '.products', 1
     assert_select '.list_actions a', minimum: 3
   end
