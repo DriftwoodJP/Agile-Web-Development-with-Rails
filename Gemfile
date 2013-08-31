@@ -7,6 +7,12 @@ gem 'rails', '3.2.14'
 
 gem 'sqlite3'
 
+# Gems used only for development
+group :development do
+  gem 'pry-rails'
+  gem 'rails-erd'
+  gem 'erd'
+end
 
 # Gems used only for assets and not required
 # in production environments by default.

@@ -13,11 +13,17 @@ class LineItemsController < ApplicationController
   # GET /line_items/1
   # GET /line_items/1.json
   def show
-    @line_item = LineItem.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @line_item }
+    begin
+      @line_item = LineItem.find(params[:id])
+    # Rails Play Time - Ch.10 Depot_e
+    rescue ActiveRecord::RecordNotFound
+      logger.error "Attempt to access line_item #{params[:id]}"
+      redirect_to line_items_url, notice: 'Invalid line_item'
+    else
+      respond_to do |format|
+        format.html # show.html.erb
+        format.json { render json: @line_item }
+      end
     end
   end
 
@@ -42,14 +48,14 @@ class LineItemsController < ApplicationController
   def create
     @cart = current_cart
     product = Product.find(params[:product_id])
-    @line_item = @cart.line_items.build(product: product)
+    @line_item = @cart.add_product(product.id)
 
     respond_to do |format|
       if @line_item.save
         # Rails Play Time - Ch.9 Depot_d
-        increment_cunter_reset
+        # increment_cunter_reset
 
-        format.html { redirect_to @line_item.cart, notice: 'Line item was successfully created.' }
+        format.html { redirect_to @line_item.cart }
         format.json { render json: @line_item, status: :created, location: @line_item }
       else
         format.html { render action: "new" }
@@ -65,7 +71,12 @@ class LineItemsController < ApplicationController
 
     respond_to do |format|
       if @line_item.update_attributes(params[:line_item])
-        format.html { redirect_to @line_item, notice: 'Line item was successfully updated.' }
+        # Rails Play Time - Ch.10 Depot_e
+        if (@line_item.quantity == 0)
+          @line_item.destroy
+          format.html { redirect_to @line_item.cart, notice: 'Item removed' }
+        end
+        format.html { redirect_to @line_item.cart, notice: 'Updated' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -81,7 +92,7 @@ class LineItemsController < ApplicationController
     @line_item.destroy
 
     respond_to do |format|
-      format.html { redirect_to line_items_url }
+      format.html { redirect_to line_items_url}
       format.json { head :no_content }
     end
   end

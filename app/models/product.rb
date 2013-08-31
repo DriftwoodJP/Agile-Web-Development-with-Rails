@@ -12,6 +12,9 @@ class Product < ActiveRecord::Base
     with:    %r{\.(gif|jpg|png)$}i,
     message: 'は、gif,jpg,png画像のURLでなければなりません'
   }
+  # Rails Play Time - Ch.10 Depot_e
+  validates :image_url, uniqueness: true
+  validates :price, numericality: {less_than_or_equal_to: 1000}
 
   private
 

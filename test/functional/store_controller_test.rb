@@ -8,7 +8,8 @@ class StoreControllerTest < ActionController::TestCase
     assert_select '#main .entry', 3
     assert_select 'h3', 'Programming Ruby 1.9'
     assert_select '.price', /\$[,\d]+\.\d\d/
-    assert_select '#columns #side li', Time.now.strftime('%c')
+    # Rails Play Time - Ch.8 Depot_c
+    # assert_select '#columns #side li', Time.now.strftime('%c')
   end
 
 end

@@ -29,14 +29,21 @@ class LineItemsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  # Rails Play Time - Ch.10 Depot_e
+  test "should attempt to access invalid nonexistent line_item id" do
+    get :show, id: 999
+    assert_redirected_to line_items_url
+  end
+
   test "should get edit" do
     get :edit, id: @line_item
     assert_response :success
   end
 
+  # Rails Play Time - Ch.10 Depot_e
   test "should update line_item" do
     put :update, id: @line_item, line_item: { cart_id: @line_item.cart_id, product_id: @line_item.product_id }
-    assert_redirected_to line_item_path(assigns(:line_item))
+    assert_redirected_to @line_item.cart
   end
 
   test "should destroy line_item" do

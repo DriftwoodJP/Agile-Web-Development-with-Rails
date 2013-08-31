@@ -45,6 +45,12 @@ class ProductsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  # Rails Play Time - Ch.10 Depot_e
+  test "should attempt to access invalid nonexistent product id" do
+    get :show, id: 999
+    assert_redirected_to products_url
+  end
+
   test "should get edit" do
     get :edit, id: @product
     assert_response :success
@@ -55,9 +61,17 @@ class ProductsControllerTest < ActionController::TestCase
     assert_redirected_to product_path(assigns(:product))
   end
 
+  # Rails Play Time - Ch.10 Depot_e
+  test "can't delete product in cart" do
+    assert_difference('Product.count', 0) do
+      delete :destroy, id: products(:ruby).to_param
+    end
+    assert_redirected_to products_path
+  end
+
   test "should destroy product" do
     assert_difference('Product.count', -1) do
-      delete :destroy, id: @product
+      delete :destroy, id: @product.to_param
     end
 
     assert_redirected_to products_path

@@ -1,9 +1,10 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
+# Rails Play Time - Ch.10 Depot_e
 one:
-  product_id: 1
-  cart_id: 1
+  product: ruby
+  cart: one
 
 two:
-  product_id: 1
-  cart_id: 1
+  product: ruby
+  cart: two

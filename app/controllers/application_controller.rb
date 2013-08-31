@@ -12,12 +12,12 @@ class ApplicationController < ActionController::Base
   end
 
   # Rails Play Time - Ch.9 Depot_d
-  def increment_cunter
-    session[:counter] ||= 0
-    session[:counter] += 1
-  end
-  def increment_cunter_reset
-    session[:counter] = 0
-  end
+  # def increment_cunter
+  #   session[:counter] ||= 0
+  #   session[:counter] += 1
+  # end
+  # def increment_cunter_reset
+  #   session[:counter] = 0
+  # end
 
 end
