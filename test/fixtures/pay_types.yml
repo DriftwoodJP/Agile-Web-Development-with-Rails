@@ -1,10 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
-# Rails Play Time - Ch.10 Depot_e
 one:
-  product: ruby
-  order: one
+  name: Check
 
 two:
-  product: ruby
-  cart: one
+  name: Card

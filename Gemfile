@@ -43,3 +43,5 @@ gem 'jquery-ui-rails'
 
 # To use debugger
 # gem 'debugger'
+
+gem 'will_paginate'

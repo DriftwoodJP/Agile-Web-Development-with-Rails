@@ -7,6 +7,8 @@
     <td class="total_cell"><%= number_to_currency(cart.total_price) %></td>
   </tr>
 </table>
-
-<%= button_to 'カートを空にする', cart, method: :delete,
-    confirm: '本当に良いですか？', remote: true %>
+<% if @order.nil? %>
+  <%= button_to 'チェックアウト', new_order_path, method: :get %>
+  <%= button_to 'カートを空にする', cart, method: :delete,
+      confirm: '本当に良いですか？', remote: true %>
+<% end %>
