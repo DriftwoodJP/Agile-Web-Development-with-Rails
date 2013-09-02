@@ -52,10 +52,8 @@ class LineItemsController < ApplicationController
 
     respond_to do |format|
       if @line_item.save
-        # Rails Play Time - Ch.9 Depot_d
-        # increment_cunter_reset
-
-        format.html { redirect_to @line_item.cart }
+        format.html { redirect_to store_url }
+        format.js   { @current_item = @line_item }
         format.json { render json: @line_item, status: :created, location: @line_item }
       else
         format.html { render action: "new" }
@@ -74,9 +72,11 @@ class LineItemsController < ApplicationController
         # Rails Play Time - Ch.10 Depot_e
         if (@line_item.quantity == 0)
           @line_item.destroy
-          format.html { redirect_to @line_item.cart, notice: 'Item removed' }
+          format.html { redirect_to store_url, notice: 'Item removed' }
+          # format.js
         end
-        format.html { redirect_to @line_item.cart, notice: 'Updated' }
+        format.html { redirect_to store_url, notice: 'Updated' }
+        # format.js
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

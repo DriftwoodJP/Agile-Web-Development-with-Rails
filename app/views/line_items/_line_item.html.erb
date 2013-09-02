@@ -1,0 +1,14 @@
+<!--   # Rails Play Time - Ch.10 Depot_e -->
+<%= form_for line_item do |f| %>
+  <% if line_item == @current_item %>
+  <tr id="current_item">
+  <% else %>
+  <tr>
+  <% end %>
+    <td><%= line_item.product.title %></td>
+    <td>
+      <%= f.text_field :quantity, size: 1 %>
+    </td>
+    <td class="item_price"><%= number_to_currency(line_item.total_price) %></td>
+  </tr>
+<% end %>

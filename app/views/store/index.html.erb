@@ -4,11 +4,6 @@
 
 <h1>Pragmaticカタログ</h1>
 
-<!-- # Rails Play Time - Ch.9 Depot_d
-<% if @count %>
-<p><%= pluralize(@count, "time") %></p>
-<% end %> -->
-
 <% @products.each do |product| %>
   <div class="entry">
     <!-- # Rails Play Time - Ch.9 Depot_d -->
@@ -18,11 +13,9 @@
     <h3><%= product.title %></h3>
     <%= sanitize(product.description) %>
     <div class="price_line">
-<!--        # Rails Play Time - Ch.8 Depot_c
-        <%= number_to_currency(product.price, :unit => "&euro;", :separator => ",", :delimiter => "", :format => "%n %u") %>
- -->
       <span class="price"><%= number_to_currency(product.price) %></span>
-      <%= button_to 'カートに入れる', line_items_path(product_id: product) %>
+      <%= button_to 'カートに入れる', line_items_path(product_id: product),
+          remote: true %>
     </div>
   </div>
 <% end %>
