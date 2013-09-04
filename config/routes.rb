@@ -2,7 +2,9 @@ Depot::Application.routes.draw do
   resources :pay_types
 
 
-  resources :orders
+  resources :orders do
+    get :update_ship_date, on: :member
+  end
 
 
   resources :line_items

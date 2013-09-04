@@ -55,6 +55,7 @@ class OrdersController < ApplicationController
       if @order.save
         Cart.destroy(session[:cart_id])
         session[:cart_id] = nil
+        OrderNotifier.received(@order).deliver
         format.html { redirect_to store_url, notice: 'ご注文ありがとうございます' }
         format.json { render json: @order, status: :created, location: @order }
       else
@@ -78,6 +79,18 @@ class OrdersController < ApplicationController
         format.html { render action: "edit" }
         format.json { render json: @order.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def update_ship_date
+    @order = Order.find(params[:id])
+
+    @order.ship_date = Time.now
+    @order.save
+
+    respond_to do |format|
+      OrderNotifier.shipped(@order).deliver
+      format.html { redirect_to @order, notice: 'Order was shipped.' }
     end
   end
 

@@ -6,6 +6,7 @@
     <th>Address</th>
     <th>Email</th>
     <th>Pay type</th>
+    <th>Ship date</th>
     <th></th>
     <th></th>
     <th></th>
@@ -17,6 +18,13 @@
     <td><%= order.address %></td>
     <td><%= order.email %></td>
     <td><%= order.pay_type.name %></td>
+    <td>
+        <% if order.ship_date %>
+          <%= order.ship_date.strftime('%Y/%m/%d %H:%M:%S') %>
+        <% else %>
+          <%= link_to 'ship', update_ship_date_order_path(order) %>
+        <% end %>
+     </td>
     <td><%= link_to 'Show', order %></td>
     <td><%= link_to 'Edit', edit_order_path(order) %></td>
     <td><%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>

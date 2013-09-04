@@ -15,8 +15,9 @@ class CartsController < ApplicationController
   def show
     begin
       @cart = Cart.find(params[:id])
-    rescue ActiveRecord::RecordNotFound
+    rescue ActiveRecord::RecordNotFound => e
       logger.error "無効なカート#{params[:id]}にアクセスしようとしました"
+      SystemNotifier.error_occured(e).deliver
       redirect_to store_url, notice: '無効なカートです'
     else
       respond_to do |format|

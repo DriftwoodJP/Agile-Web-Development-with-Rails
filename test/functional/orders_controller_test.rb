@@ -60,4 +60,9 @@ class OrdersControllerTest < ActionController::TestCase
 
     assert_redirected_to orders_path
   end
+
+  test "should update ship_date" do
+    get :update_ship_date, id: @order
+    assert_redirected_to order_path(assigns(:order))
+  end
 end
