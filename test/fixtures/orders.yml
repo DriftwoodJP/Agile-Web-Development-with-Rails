@@ -2,7 +2,7 @@
 
 one:
   name: Dave Thomas
-  address: MyText
+  address: 123 Main Street
   email: dave@example.org
   pay_type: one
 

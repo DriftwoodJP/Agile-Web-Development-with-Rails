@@ -16,6 +16,8 @@
 
 # 追記
 /*.lock
+AWDwRails32.sublime-project
+AWDwRails32.sublime-workspace
 /vendor/bundle
 /worklog
 

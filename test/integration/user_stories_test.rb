@@ -62,19 +62,48 @@ class UserStoriesTest < ActionDispatch::IntegrationTest
 
   # 発送処理と発送完了メールの送信
   test "shipping a product" do
+    # login user
+    user = users(:one)
+    get "/login"
+    assert_response :success
+    post_via_redirect "/login", name: user.name, password: 'secret'
+    assert_response :success
+    assert_equal '/admin', path
+
+    get "/orders"
+    assert_response :success
+
     # 発送を完了する
-    # update_ship_date_order_path(order)
-    # ship_date = Time.now
+    order = orders(:one)
+    get update_ship_date_order_path(order)
+    assert_response :redirect
+    assert_template "orders"
+    # ship_date = Time.now.in_time_zone
     # assert_equal ship_date, order.ship_date
+    # assert_select "", ship_date
+
     # 顧客へ発送メールが送信される
     # （メールのアドレスと件名が正しいことを検証します）
-    # mail = ActionMailer::Base.deliveries.last
-    # assert_equal ["dave@example.org"], mail.to
-    # assert_equal ["depot@example.com"], mail.from
-    # assert_equal "Pragmatic Store Order Shipped", mail.subject
+    mail = ActionMailer::Base.deliveries.last
+    assert_equal ["dave@example.org"], mail.to
+    assert_equal ["depot@example.com"], mail.from
+    assert_equal "Pragmatic Store Order Shipped", mail.subject
   end
 
   test "should mail the admin when error_occured" do
+    # login user
+    user = users(:one)
+    get "/login"
+    assert_response :success
+    post_via_redirect "/login", name: user.name, password: 'secret'
+    assert_response :success
+    assert_equal '/admin', path
+
+    # logout user
+    # delete "/logout"
+    # assert_response :redirect
+    # assert_template "/"
+
     get "/carts/wibble"
     assert_response :redirect
     assert_template "/"
@@ -83,6 +112,40 @@ class UserStoriesTest < ActionDispatch::IntegrationTest
     assert_equal "Depot App Error Incident", mail.subject
     assert_equal "Sam Ruby <depot@example.com>", mail[:to].value
     assert_equal ["system@example.com"], mail.from
+  end
+
+  test "should fail on access of sensitive data" do
+    # login user
+    user = users(:one)
+    get "/login"
+    assert_response :success
+    post_via_redirect "/login", name: user.name, password: 'secret'
+    assert_response :success
+    assert_equal '/admin', path
+
+    # look at a protected resource
+    get "/carts/12345"
+    assert_response :success
+    assert_equal '/carts/12345', path
+
+    # logout user
+    delete "/logout"
+    assert_response :redirect
+    assert_template "/"
+
+    #try to look at protected resource again, should be redirected to login page
+    get "/carts/12345"
+    assert_response :redirect
+    follow_redirect!
+    assert_equal '/login', path
+  end
+
+  test "should logout and not be allowed back in" do
+    delete "/logout"
+    assert_redirected_to store_url
+
+    get "/users"
+    assert_redirected_to login_url
   end
 
 end

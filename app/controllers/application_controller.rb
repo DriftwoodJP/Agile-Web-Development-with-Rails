@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
+  before_filter :authorize
 
   private
 
@@ -9,6 +10,23 @@ class ApplicationController < ActionController::Base
     cart = Cart.create
     session[:cart_id] = cart.id
     cart
+  end
+
+  def authorize
+    unless request.format == Mime::HTML
+      authenticate_or_request_with_http_basic do |n,p|
+        user = User.find_by_name(n)
+        if user && user.authenticate(p)
+          session[:user_id] = user.id
+        end
+      end
+    else
+      return if User.count.zero?
+
+      unless User.find_by_id(session[:user_id])
+        redirect_to login_url, notice: "Please log in"
+      end
+    end
   end
 
   # Rails Play Time - Ch.9 Depot_d

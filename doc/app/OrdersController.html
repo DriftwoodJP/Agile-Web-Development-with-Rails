@@ -107,6 +107,10 @@
 
   <ul class="link-list">
   
+    <li><a href="./AdminController.html">AdminController</a>
+  
+    <li><a href="./AdminHelper.html">AdminHelper</a>
+  
     <li><a href="./ApplicationController.html">ApplicationController</a>
   
     <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
@@ -143,11 +147,21 @@
   
     <li><a href="./ProductsHelper.html">ProductsHelper</a>
   
+    <li><a href="./SessionsController.html">SessionsController</a>
+  
+    <li><a href="./SessionsHelper.html">SessionsHelper</a>
+  
     <li><a href="./StoreController.html">StoreController</a>
   
     <li><a href="./StoreHelper.html">StoreHelper</a>
   
     <li><a href="./SystemNotifier.html">SystemNotifier</a>
+  
+    <li><a href="./User.html">User</a>
+  
+    <li><a href="./UsersController.html">UsersController</a>
+  
+    <li><a href="./UsersHelper.html">UsersHelper</a>
   
   </ul>
 </nav>
@@ -196,7 +210,7 @@
 
           
           <div class="method-source-code" id="create-source">
-            <pre><span class="ruby-comment"># File app/controllers/orders_controller.rb, line 50</span>
+            <pre><span class="ruby-comment"># File app/controllers/orders_controller.rb, line 52</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
   <span class="ruby-ivar">@order</span> = <span class="ruby-constant">Order</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:order</span>])
   <span class="ruby-ivar">@order</span>.<span class="ruby-identifier">add_line_items_from_cart</span>(<span class="ruby-identifier">current_cart</span>)
@@ -241,7 +255,7 @@
 
           
           <div class="method-source-code" id="destroy-source">
-            <pre><span class="ruby-comment"># File app/controllers/orders_controller.rb, line 99</span>
+            <pre><span class="ruby-comment"># File app/controllers/orders_controller.rb, line 101</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
   <span class="ruby-ivar">@order</span> = <span class="ruby-constant">Order</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
   <span class="ruby-ivar">@order</span>.<span class="ruby-identifier">destroy</span>
@@ -277,7 +291,7 @@
 
           
           <div class="method-source-code" id="edit-source">
-            <pre><span class="ruby-comment"># File app/controllers/orders_controller.rb, line 44</span>
+            <pre><span class="ruby-comment"># File app/controllers/orders_controller.rb, line 46</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">edit</span>
   <span class="ruby-ivar">@order</span> = <span class="ruby-constant">Order</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
 <span class="ruby-keyword">end</span></pre>
@@ -307,7 +321,7 @@
 
           
           <div class="method-source-code" id="index-source">
-            <pre><span class="ruby-comment"># File app/controllers/orders_controller.rb, line 4</span>
+            <pre><span class="ruby-comment"># File app/controllers/orders_controller.rb, line 6</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
   <span class="ruby-ivar">@orders</span> = <span class="ruby-constant">Order</span>.<span class="ruby-identifier">paginate</span> <span class="ruby-identifier">page</span><span class="ruby-operator">:</span>     <span class="ruby-identifier">params</span>[<span class="ruby-value">:page</span>],
                            <span class="ruby-identifier">order</span><span class="ruby-operator">:</span>    <span class="ruby-string">&#39;created_at desc&#39;</span>,
@@ -344,7 +358,7 @@
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File app/controllers/orders_controller.rb, line 28</span>
+            <pre><span class="ruby-comment"># File app/controllers/orders_controller.rb, line 30</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">new</span>
   <span class="ruby-ivar">@cart</span> = <span class="ruby-identifier">current_cart</span>
   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@cart</span>.<span class="ruby-identifier">line_items</span>.<span class="ruby-identifier">empty?</span>
@@ -385,7 +399,7 @@
 
           
           <div class="method-source-code" id="show-source">
-            <pre><span class="ruby-comment"># File app/controllers/orders_controller.rb, line 17</span>
+            <pre><span class="ruby-comment"># File app/controllers/orders_controller.rb, line 19</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">show</span>
   <span class="ruby-ivar">@order</span> = <span class="ruby-constant">Order</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
 
@@ -420,7 +434,7 @@
 
           
           <div class="method-source-code" id="update-source">
-            <pre><span class="ruby-comment"># File app/controllers/orders_controller.rb, line 71</span>
+            <pre><span class="ruby-comment"># File app/controllers/orders_controller.rb, line 73</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">update</span>
   <span class="ruby-ivar">@order</span> = <span class="ruby-constant">Order</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
 
@@ -460,7 +474,7 @@
 
           
           <div class="method-source-code" id="update_ship_date-source">
-            <pre><span class="ruby-comment"># File app/controllers/orders_controller.rb, line 85</span>
+            <pre><span class="ruby-comment"># File app/controllers/orders_controller.rb, line 87</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">update_ship_date</span>
   <span class="ruby-ivar">@order</span> = <span class="ruby-constant">Order</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
 
