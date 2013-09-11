@@ -1,15 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Pragprog Books オンラインストア</title>
+  <title>Pragprog Books Online Store</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body class="<%= controller.controller_name %>">
   <div id="banner">
+    <%= form_tag store_path, class: 'locale' do %>
+      <%= select_tag 'set_locale',
+        options_for_select([
+            ['English', 'en'],
+            ["日本語".html_safe, 'ja']
+          ], I18n.locale.to_s),
+        onchange: 'this.form.submit()' %>
+      <%= javascript_tag "$('.locale input').hide()" %>
+    <% end %>
     <%= image_tag("logo.png") %>
-    <%= @page_title || "Pragprog Bookshelf" %>
+    <%= @page_title || t('.title') %>
   </div>
   <div id="columns">
     <div id="side">
@@ -22,10 +31,10 @@
       </div>
 
       <ul>
-        <li><a href="/">ホーム</a></li>
-        <li><a href="/faq">良くある質問</a></li>
-        <li><a href="/news">ニュース</a></li>
-        <li><a href="/contact">お問い合わせ</a></li>
+        <li><a href="/"><%= t('.home') %></a></li>
+        <li><a href="/faq"><%= t('.questions') %></a></li>
+        <li><a href="/news"><%= t('.news') %></a></li>
+        <li><a href="/contact"><%= t('.contact') %></a></li>
       </ul>
 
       <% if session[:user_id] %>

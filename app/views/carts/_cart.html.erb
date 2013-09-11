@@ -1,4 +1,4 @@
-<div class="cart_title">カート</div>
+<div class="cart_title"><%= t('.title') %></div>
 <table>
   <%= render(cart.line_items) %>
 
@@ -8,7 +8,7 @@
   </tr>
 </table>
 <% if @order.nil? %>
-  <%= button_to 'チェックアウト', new_order_path, method: :get %>
-  <%= button_to 'カートを空にする', cart, method: :delete,
-      confirm: '本当に良いですか？', remote: true %>
+  <%= button_to t('.checkout'), new_order_path, method: :get %>
+  <%= button_to t('.empty'), cart, method: :delete,
+      confirm: t('.confirm'), remote: true %>
 <% end %>
